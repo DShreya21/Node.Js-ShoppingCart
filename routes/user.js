@@ -21,7 +21,7 @@ router.get('/profile',isLoggedIn,function(req,res,next){
       });
       res.render('user/profile',{orders:orders});
 
-    });
+    }).lean();
   });
 
 router.get('/logout',isLoggedIn,function(req,res,next){
@@ -60,8 +60,8 @@ router.get('/signin',function(req,res,next)
   res.render('user/signin', {csrfToken:req.csrfToken(),messages:messages,hasErrors:messages.length>0});
 });
 
-router.post('/signin',passport.authenticate('local.signup',{
-  failureRedirect:'user/signin',
+router.post('/signin',passport.authenticate('local.signin',{
+  failureRedirect:'/user/signin',
   failureFlash:true
 }),function(req,res,next){
   if(req.session.oldUrl)
